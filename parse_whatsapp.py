@@ -58,6 +58,7 @@ with open(sys.argv[1], 'r') as f:
             for t in tokens:
                 t = t.lower()
                 t = t.strip(',')
+                t = t.strip('.')
                 if t in stops:
                     continue
                 attributed_tokens.append({'speaker': speaker, 'token': t})
