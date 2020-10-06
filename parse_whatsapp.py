@@ -1,3 +1,5 @@
+# coding: utf-8
+
 import datetime
 import re
 import sys
@@ -22,19 +24,32 @@ with open('stopwords.txt', 'r') as f:
 
 stops.add('<media')
 stops.add('omitted>')
+stops.add('<média')
+stops.add('<médias')
+stops.add('omis>')
+stops.add('lol')
+stops.add('yea')
+stops.add('yeah')
+stops.add('no')
+stops.add('oh')
+stops.add('ya')
 for x in xrange(20):
     stops.add(str(x))
 
 with open(sys.argv[1], 'r') as f:
     for line in f:
         line = line.strip()
+        line = line.replace("‘", "'")
+        line = line.replace("’", "'")
+        line = line.replace("“", '"')
+        line = line.replace("”", '"')
         # Line like this "2016-09-17, 12:05 - Edward Guo: It's been 3 years and a month"
         match = pattern.match(line)
         changed_match = changed_pattern.match(line)
         if match:
             whatsapp_format_datetime = match.group(1)
             speaker = match.group(2)
-            message_time = datetime.datetime.strptime(whatsapp_format_datetime, '%Y-%m-%d, %H:%M')
+            message_time = datetime.datetime.strptime(whatsapp_format_datetime, '%y-%m-%d %H h %M')
             message = {}
             message['time'] = message_time
             message['speaker'] = speaker
